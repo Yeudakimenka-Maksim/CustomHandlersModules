@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body>
+    <div id="div-header">
+        <a href="#" id="link-login" onclick=" task2.showLoginForm(); ">Log in</a>
+        <a href="#" id="link-logoff" onclick=" task2.logOff(); ">Log off</a>
+    </div>
+    <form id="form-login">
+        <input id="input-username" type="text" placeholder="Username" name="username">
+        <input id="input-password" type="password" placeholder="Password" name="password">
+        <input type="button" value="Log in" onclick=" task2.sendLoginData(); ">
+    </form>
+    <div id="div-content">
+        <a href="#" id="link-load-data" onclick=" task2.loadData(); ">Load Data</a>
+        <div id="div-data"></div>
+    </div>
+    <div onclick=" tree_toggle(arguments[0]) ">
+        <ul class="Container">
+            <li class="Node IsRoot IsLast ExpandClosed">
+                <div class="Expand"></div>
+                <div class="Content">Root</div>
+                <ul class="Container">
+                    <li class="Node ExpandClosed">
+                        <div class="Expand"></div>
+                        <div class="Content">Item 1</div>
+                        <ul class="Container">
+                            <li class="Node ExpandLeaf IsLast">
+                                <div class="Expand"></div>
+                                <div class="Content">Item 1.2</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="Node ExpandLeaf IsLast">
+                        <div class="Expand"></div>
+                        <div class="Content">Item 2</div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div onclick="tree_toggle(arguments[0])">
+        <ul class="Container">
+            <li class="Node IsRoot IsLast ExpandClosed">
+                <div class="Expand"></div>
+                <div class="Content">JSON</div>
+                <ul class="Container">
+                    <li class="Node ExpandClosed">
+                        <div class="Expand"></div>
+                        <div class="Content">Item 1</div>
+                        <ul class="Container">
+                            <li class="Node ExpandLeaf IsLast">
+                                <div class="Expand"></div>
+                                <div class="Content">Item 1.2</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="Node ExpandLeaf IsLast">
+                        <div class="Expand"></div>
+                        <div class="Content">Item 2</div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        function tree_toggle(event) {
+            event = event || window.event
+            var clickedElem = event.target || event.srcElement
+
+            if (!hasClass(clickedElem, 'Expand')) {
+                return // клик не там
+            }
+
+            // Node, на который кликнули
+            var node = clickedElem.parentNode
+            if (hasClass(node, 'ExpandLeaf')) {
+                return // клик на листе
+            }
+
+            // определить новый класс для узла
+            var newClass = hasClass(node, 'ExpandOpen') ? 'ExpandClosed' : 'ExpandOpen'
+            // заменить текущий класс на newClass
+            // регексп находит отдельно стоящий open|close и меняет на newClass
+            var re = /(^|\s)(ExpandOpen|ExpandClosed)(\s|$)/
+            node.className = node.className.replace(re, '$1' + newClass + '$3')
+        }
+
+        function hasClass(elem, className) {
+            return new RegExp("(^|\\s)" + className + "(\\s|$)").test(elem.className)
+        }
+    </script>
+
+    <style type="text/css">
+        .Container {
+            padding: 0;
+            margin: 0;
+        }
+
+            .Container li {
+                list-style-type: none;
+            }
+
+        .Node {
+            background-image: url(img/i.gif);
+            background-position: top left;
+            background-repeat: repeat-y;
+            margin-left: 18px;
+            zoom: 1;
+        }
+
+        .IsRoot {
+            margin-left: 0;
+        }
+
+        .IsLast {
+            background-image: url(img/i_half.gif);
+            background-repeat: no-repeat;
+        }
+
+        .ExpandOpen .Expand {
+            background-image: url(img/expand_minus.gif);
+        }
+
+        .ExpandClosed .Expand {
+            background-image: url(img/expand_plus.gif);
+        }
+
+        .ExpandLeaf .Expand {
+            background-image: url(img/expand_leaf.gif);
+        }
+
+        .Content {
+            min-height: 18px;
+            margin-left: 18px;
+        }
+
+        * html .Content {
+            height: 18px;
+        }
+
+        .Expand {
+            width: 18px;
+            height: 18px;
+            float: left;
+        }
+
+        .ExpandOpen .Container {
+            display: block;
+        }
+
+        .ExpandClosed .Container {
+            display: none;
+        }
+
+        .ExpandOpen .Expand, .ExpandClosed .Expand {
+            cursor: pointer;
+        }
+
+        .ExpandLeaf .Expand {
+            cursor: auto;
+        }
+    </style>
+</body>
+</html>

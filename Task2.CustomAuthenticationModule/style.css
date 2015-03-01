@@ -1,0 +1,29 @@
+﻿input {
+    display: block;
+    margin: 5px;
+}
+
+#div-header {
+    height: 2em;
+    text-align: right;
+}
+
+#link-login {
+    margin-right: 10em;
+}
+
+#link-logoff {
+    display: none;
+    margin-right: 10em;
+}
+
+#form-login {
+    display: none;
+    float: right;
+    margin-right: 4em;
+    border: 2px solid #0202ee;
+}
+
+#link-load-data {
+    display: none;
+}
